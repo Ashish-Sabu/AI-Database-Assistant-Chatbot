@@ -1,0 +1,119 @@
+EMPLOYEE DATABASE
+=================
+
+Employee ID: E001
+Name: Sarah Johnson
+Department: Engineering
+Position: Senior Software Engineer
+Salary: $125,000
+Email: sarah.johnson@company.com
+Skills: Python, JavaScript, AWS, Docker
+Joined: January 15, 2020
+
+Employee ID: E002
+Name: Michael Chen
+Department: Product Management
+Position: Product Manager
+Salary: $135,000
+Email: michael.chen@company.com
+Skills: Product Strategy, Agile, UX Design
+Joined: March 10, 2019
+
+Employee ID: E003
+Name: Emily Rodriguez
+Department: Data Science
+Position: Data Scientist
+Salary: $118,000
+Email: emily.rodriguez@company.com
+Skills: Python, Machine Learning, SQL, Tableau
+Joined: June 5, 2021
+
+Employee ID: E004
+Name: David Kim
+Department: Marketing
+Position: Marketing Director
+Salary: $140,000
+Email: david.kim@company.com
+Skills: Digital Marketing, SEO, Content Strategy
+Joined: September 1, 2018
+
+---
+
+PRODUCT CATALOG
+===============
+
+Product ID: P001
+Name: CloudSync Pro
+Category: SaaS
+Price: $29.99/month
+Description: Cloud storage and file synchronization service
+Features: 1TB storage, End-to-end encryption, Team collaboration, Mobile apps
+Active Customers: 15,420
+
+Product ID: P002
+Name: DataViz Analytics
+Category: Business Intelligence
+Price: $49.99/month
+Description: Advanced data visualization and analytics platform
+Features: Real-time dashboards, AI insights, Custom reports, 100+ integrations
+Active Customers: 8,750
+
+Product ID: P003
+Name: SecureAuth
+Category: Security
+Price: $19.99/month
+Description: Multi-factor authentication solution
+Features: Biometric login, SSO, Compliance reporting, API access
+Active Customers: 23,100
+
+---
+
+SALES REPORTS
+=============
+
+Q1 2024 Sales Summary
+Total Revenue: $2,450,000
+Growth Rate: +18% year-over-year
+Top Product: CloudSync Pro ($980,000)
+Top Region: North America (62%)
+New Customers: 1,250
+Customer Retention: 94%
+
+Q2 2024 Sales Summary
+Total Revenue: $2,680,000
+Growth Rate: +22% year-over-year
+Top Product: DataViz Analytics ($1,120,000)
+Top Region: North America (60%)
+New Customers: 1,450
+Customer Retention: 95%
+
+Q3 2024 Sales Summary
+Total Revenue: $2,890,000
+Growth Rate: +25% year-over-year
+Top Product: SecureAuth ($1,240,000)
+Top Region: Europe (45%)
+New Customers: 1,680
+Customer Retention: 96%
+
+---
+
+COMPANY POLICIES
+================
+
+Work From Home Policy:
+Employees can work remotely up to 3 days per week. Full-time remote work available for specific roles with manager approval.
+
+Vacation Policy:
+- 0-2 years: 15 days PTO
+- 2-5 years: 20 days PTO
+- 5+ years: 25 days PTO
+Plus 10 company holidays
+
+Health Benefits:
+- Medical, Dental, and Vision insurance
+- 401(k) with 5% company match
+- Life insurance coverage
+- Mental health support program
+
+Professional Development:
+$2,000 annual budget per employee for courses, conferences, and certifications

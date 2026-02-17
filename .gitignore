@@ -1,0 +1,33 @@
+# Virtual Environment (don't upload - too large!)
+venv/
+env/
+
+# Environment Variables (KEEP PRIVATE!)
+.env
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Vector store (will be recreated)
+vector_store/
+
+# Uploaded files
+uploads/
+
+# Python eggs
+*.egg-info/
+dist/
+build/
+
+# VS Code settings
+.vscode/
+
+# Windows files
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log

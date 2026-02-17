@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Database Assistant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            height: calc(100vh - 40px);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header p { font-size: 1.1em; opacity: 0.9; }
+        
+        .chat-area {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background: #f5f5f5;
+        }
+        
+        .message {
+            margin: 20px 0;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message-label {
+            font-size: 0.85em;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .message-content {
+            padding: 20px;
+            border-radius: 15px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        
+        .question .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-left: 20%;
+        }
+        
+        .answer .message-content {
+            background: white;
+            border: 1px solid #e0e0e0;
+            margin-right: 20%;
+        }
+        
+        .input-area {
+            padding: 20px 30px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .input-container {
+            display: flex;
+            gap: 15px;
+        }
+        
+        #questionInput {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        button {
+            padding: 15px 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        button:hover { transform: scale(1.05); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        .welcome {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+        }
+        
+        .welcome h2 { color: #667eea; margin: 20px 0; }
+        .welcome .icon { font-size: 5em; }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Database Assistant</h1>
+            <p>Ask me anything about your company database!</p>
+        </div>
+        
+        <div class="chat-area" id="chatArea">
+            <div class="welcome">
+                <div class="icon">🤖</div>
+                <h2>Welcome!</h2>
+                <p>I can help you find information from your database.</p>
+                <p>Try asking: "Who works in Engineering?" or "What products do we have?"</p>
+            </div>
+        </div>
+        
+        <div class="input-area">
+            <div class="input-container">
+                <input 
+                    type="text" 
+                    id="questionInput" 
+                    placeholder="Ask a question..."
+                    onkeypress="if(event.key==='Enter') askQuestion()"
+                />
+                <button onclick="askQuestion()" id="sendBtn">Send 🚀</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "http://localhost:8000";
+        let firstMessage = true;
+        
+        async function askQuestion() {
+            const input = document.getElementById('questionInput');
+            const question = input.value.trim();
+            
+            if (!question) return;
+            
+            if (firstMessage) {
+                document.getElementById('chatArea').innerHTML = '';
+                firstMessage = false;
+            }
+            
+            input.disabled = true;
+            document.getElementById('sendBtn').disabled = true;
+            
+            addMessage(question, 'question');
+            input.value = '';
+            
+            const loadingId = addLoading();
+            
+            try {
+                const response = await fetch(`${API_URL}/ask`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({question: question})
+                });
+                
+                const data = await response.json();
+                removeLoading(loadingId);
+                addMessage(data.answer, 'answer');
+                
+            } catch (error) {
+                removeLoading(loadingId);
+                addMessage('❌ Error: Could not connect to server!\nMake sure the backend is running.', 'answer');
+            } finally {
+                input.disabled = false;
+                document.getElementById('sendBtn').disabled = false;
+                input.focus();
+            }
+        }
+        
+        function addMessage(text, type) {
+            const chatArea = document.getElementById('chatArea');
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.innerHTML = `
+                <div class="message-label">${type === 'question' ? '👤 You' : '🤖 Assistant'}</div>
+                <div class="message-content">${text}</div>
+            `;
+            chatArea.appendChild(div);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+        
+        function addLoading() {
+            const id = 'loading-' + Date.now();
+            const chatArea = document.getElementById('chatArea');
+            const div = document.createElement('div');
+            div.id = id;
+            div.className = 'loading';
+            div.textContent = 'Thinking...';
+            chatArea.appendChild(div);
+            chatArea.scrollTop = chatArea.scrollHeight;
+            return id;
+        }
+        
+        function removeLoading(id) {
+            document.getElementById(id)?.remove();
+        }
+    </script>
+</body>
+</html>

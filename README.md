@@ -96,14 +96,6 @@ CHATBOT/
 └── requirements.txt
 ```
 
-## 📸 Screenshots
-
-[Add screenshots of your chatbot here]
-
 ## 🤝 Contributing
 
 Pull requests are welcome!
-
-## 📝 License
-
-MIT License
